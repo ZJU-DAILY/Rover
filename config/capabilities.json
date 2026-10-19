@@ -1,0 +1,5 @@
+{
+  "schema": "rover.capabilities.v1",
+  "construction": true,
+  "rpc_abi": 2
+}

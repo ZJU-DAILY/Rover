@@ -1,0 +1,139 @@
+                                                           //qidl copyright
+//% Copyright (c) 2012-2014, 2020, 2022 Qualcomm Technologies, Inc.
+                                                           //qidl nested=false
+//% All Rights Reserved.
+//% Qualcomm Confidential and Proprietary
+
+
+#include "AEEStdDef.idl"
+#include "remote.idl"
+
+
+const string IDL_VERSION = "1.4.0";
+
+interface calculator : remote_handle64 {
+    AEEResult rover_configure(in int32 abi_version, in int32 l1_bits);
+    AEEResult retrieval_async_submit(
+        in sequence<float> query,
+        in sequence<long> candidate_ids,
+        in sequence<uint8> compressed_batch,
+        in int32 dim,
+        in int32 num_candidates,
+        in float scale,
+        in float zero_point,
+        rout int32 task_id
+    );
+    AEEResult retrieval_async_poll(
+        in int32 task_id,
+        rout int32 status,
+        rout sequence<long> result_ids,
+        rout sequence<float> distances,
+        rout int32 num_results
+    );
+    AEEResult retrieval_async_reset();
+
+
+    AEEResult retrieval_load(
+        in  sequence<long>  graph,
+        in  sequence<uint8> l1_codes,
+        in  int32  num_vectors,
+        in  int32  dim,
+        in  int32  graph_k,
+        in  int32  graph_entry_point,
+        in  float  l1_scale,
+        in  float  l1_zero_point
+    );
+    AEEResult retrieval_search(
+        in   sequence<float> query,
+        in   int32  entry_points,
+        in   int32  expand_count,
+        in   int32  pool_size,
+        in   int32  num_out,
+        rout sequence<long>  candidate_ids,
+        rout sequence<float> candidate_dists,
+        rout int32           actual_count
+    );
+    AEEResult retrieval_unload();
+
+
+    AEEResult retrieval_load_dma(
+        in  int32  fd_graph,
+        in  sequence<int32> fd_l1_codes,
+        in  int32  l1_chunk_vectors,
+        in  int32  num_vectors,
+        in  int32  dim,
+        in  int32  graph_k,
+        in  int32  graph_entry_point,
+        in  float  l1_scale,
+        in  float  l1_zero_point
+    );
+    AEEResult retrieval_unload_dma();
+
+
+    AEEResult retrieval_rnn_l2_load_dma(
+        in int32 fd_base,
+        in int32 num_vectors,
+        in int32 dim
+    );
+    AEEResult retrieval_rnn_l2_batch(
+        in sequence<long> ids_a,
+        in sequence<long> ids_b,
+        in int32 pair_count,
+        rout sequence<float> distances
+    );
+    AEEResult retrieval_rnn_l2_unload_dma();
+
+
+    AEEResult retrieval_search_db(
+        in   sequence<float> query_a,
+        in   sequence<float> query_b,
+        in   int32  fd_expansion_buf,
+        in   int32  entry_points,
+        in   int32  expand_count,
+        in   int32  pool_size,
+        in   int32  num_out,
+        rout sequence<long>  candidate_ids_a,
+        rout sequence<float> candidate_dists_a,
+        rout int32           actual_count_a,
+        rout sequence<long>  candidate_ids_b,
+        rout sequence<float> candidate_dists_b,
+        rout int32           actual_count_b
+    );
+
+
+    AEEResult retrieval_expand_sqmd(
+        in sequence<float> query,
+        in int32 query_dim,
+        in int32 fd_sqmd_ctrl,
+        in int32 lane_count,
+        in int32 work_items_cap
+    );
+
+
+    AEEResult retrieval_expand_sqmd_run(
+        in int32 fd_sqmd_ctrl,
+        in int32 lane_count,
+        in int32 work_items_cap
+    );
+
+    AEEResult retrieval_pure_pq_load_dma(
+        in sequence<int32> fd_pq_codes,
+        in sequence<int32> pq_chunk_vector_counts,
+        in int32 pq_chunk_vectors,
+        in sequence<float> pq_codebook,
+        in int32 num_vectors,
+        in int32 dim,
+        in int32 pq_m,
+        in int32 pq_ks,
+        in int32 pq_subdim,
+        in int32 pq_code_bytes,
+        in sequence<uint8> index_uuid
+    );
+    AEEResult retrieval_pure_pq_unload_dma();
+    AEEResult retrieval_pure_pq_sqmd_run(
+        in int32 fd_sqmd_ctrl,
+        in int32 fd_query_lut,
+        in int32 lane_count,
+        in int32 work_items_cap
+    );
+};

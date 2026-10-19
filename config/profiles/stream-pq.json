@@ -1,0 +1,1 @@
+{"method":"pq","pq_bits":8,"pq_subdim":16,"residual_bits":4,"third_residual":"on","build_method":"stream-insert","graph_degree":16,"build_pool":128,"build_candidates":16,"entry_points":32,"lanes":4,"source_window":1,"cache_pages":65536,"refine_cache_pages":16384,"build_threads":1,"backlink_threads":1}
