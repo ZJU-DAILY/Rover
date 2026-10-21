@@ -1,6 +1,6 @@
-# Rover: Graph-Based Vector Search and Index Construction on Qualcomm Hexagon DSP
+# Rover: A Resource-Efficient Framework for On-Device Vector Search via Mobile SoC Acceleration
 
-Rover is a graph-based approximate nearest neighbor search (ANNS) project for Qualcomm Hexagon DSP. It supports scalar quantization (SQ), product quantization (PQ), online residual correction, reranking with two- or three-level vector reconstruction, graph construction, and streaming insertion. A Python entry point on the host coordinates data preparation, optional graph layout optimization, transfers, device execution, and result collection.
+Rover is a graph-based ANNS framework for on-device vector search via mobile SoC acceleration. It supports ANNS using aggressive scalar quantization (SQ) and product quantization (PQ) with a high compression ratio while preserving accuracy. A distance refinement strategy, fine-grained asynchronous pipeline, and neighborhood-aware storage layout are proposed to jointly optimize memory, computation, and I/O demands, achieving comparable performance to in-memory ANNS methods with limited memory. A Python entry point on the host coordinates data preparation, optional graph layout optimization, transfers, device execution, and result collection. It employs Qualcomm Snapdragon SoCs as the prototype platform. 
 
 ## Table of Contents
 
